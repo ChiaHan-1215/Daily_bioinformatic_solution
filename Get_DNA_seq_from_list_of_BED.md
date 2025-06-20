@@ -1,7 +1,9 @@
-####Goal: Get DNA sequence from list of bed file using UCSC genome brower. 
-If we have a list of `chr start end` in bed file format, want to retive the DNA sequence in this reion
+#### Goal: Get DNA sequence from list of bed file using UCSC genome brower. 
+Our goal is to extract DNA sequences for regions specified in a BED file using the UCSC Genome Browser. 
 
-####Code/protocol:
+The BED file lists each interval by chromosome, start, and end coordinates, and we use the browser’s sequence retrieval tools to download the matching FASTA entries.
+
+#### Code/protocol:
 
 1.  Prepare your BED file: Ensure your BED file is properly formatted with chromosome, start, and end coordinates. 
 2. Upload the BED file as a custom track: Navigate to the UCSC Genome Browser's Add Custom Tracks page and upload your BED file. 
