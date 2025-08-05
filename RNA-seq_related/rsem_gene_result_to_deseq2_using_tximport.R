@@ -59,31 +59,35 @@ coldata <- data.frame(
 dds <- DESeqDataSetFromTximport(txi, colData=coldata, design=~treatment)
 
 
+# check to see if it match
+colData(dds)
 
-# make the sample table
+smallestGroupSize <- 3
+keep <- rowSums(counts(dds) >= 10) >= smallestGroupSize
+dds <- dds[keep,]
 
-coldata <- data.frame(
-  treatment = factor(rep(c("RA","DMSO"), each=3)),
-  row.names = colnames(txi_filt$counts)
-)
-
-
-# Import to DeSeq2
-dds <- DESeqDataSetFromTximport(txi, colData=coldata, design=~treatment)
 # Now can do dds stuff...
+dds <- DESeq(dds)
+res <- results(dds)
+res
+# check names
+resultsNames(dds)
+# check and order res
+resOrdered <- res[order(res$pvalue),]
+# summ
+summary(res)
+# subset sig
+resSig <- subset(resOrdered, padj < 0.05) %>% data.frame()
 
-
-
-
-
-
-
+# plot PCA to check 
+vsd <- vst(dds, blind=FALSE)
+plotPCA(vsd,intgroup=c("treatment"))
 
 
 
 
 # 1. Extract the unique Ensembl gene IDs you have
-gene_ids <- rownames(gene_tpm)
+gene_ids <- rownames(resSig)
 gene_ids <- gsub('\\.[0-9]+','',gene_ids)
 
 gene_map <- ensembldb::select(
@@ -95,7 +99,7 @@ gene_map <- ensembldb::select(
 # 3. Turn that into a named vector for lookup
 symb <- setNames(gene_map$GENENAME, gene_map$GENEID)
 # set name 
-rownames(gene_tpm) <- ifelse(is.na(symb[gene_ids]),
+rownames(resSig) <- ifelse(is.na(symb[gene_ids]),
                              gene_ids,symb[gene_ids])
 gene_tpm <- data.frame(gene_tpm)
 gene_tpm <- gene_tpm %>% mutate(GENE=rownames(gene_tpm), .before = D1 )
