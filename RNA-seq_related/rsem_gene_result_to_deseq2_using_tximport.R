@@ -84,6 +84,9 @@ vsd <- vst(dds, blind=FALSE)
 plotPCA(vsd,intgroup=c("treatment"))
 
 
+# The way to get normalized count 
+norm_counts <- counts(dds, normalized = TRUE)
+
 
 
 # 1. Extract the unique Ensembl gene IDs you have
@@ -99,9 +102,15 @@ gene_map <- ensembldb::select(
 # 3. Turn that into a named vector for lookup
 symb <- setNames(gene_map$GENENAME, gene_map$GENEID)
 # set name 
-rownames(resSig) <- ifelse(is.na(symb[gene_ids]),
+rownames(resSig) <- gsub('\\.[0-9]+','',rownames(resSig))
+
+# assign new column
+resSig$ID <- rownames(resSig)
+
+# note: this is is not best approach as in will duplicaiton in some gene symbol.
+# need to think about other approach
+resSig$gene_symbol  <- ifelse(is.na(symb[gene_ids]),
                              gene_ids,symb[gene_ids])
-gene_tpm <- data.frame(gene_tpm)
-gene_tpm <- gene_tpm %>% mutate(GENE=rownames(gene_tpm), .before = D1 )
+
 
 
