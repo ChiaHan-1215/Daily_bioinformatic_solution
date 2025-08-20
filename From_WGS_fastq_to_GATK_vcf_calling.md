@@ -308,3 +308,46 @@ The output:
 xxx_funcotator.maf
 xxx_multianno.csv
 
+
+#### The dwonstreaming analysis 
+
+##### Maftools in R 
+
+```R
+
+# install BiocManager if not already installed
+if (!require("BiocManager"))
+  install.packages("BiocManager")
+# install maftools if not already installed
+BiocManager::install("maftools")
+
+library(maftools)
+
+# All kinds of plots 
+tcga_luad_maf <- read.maf(maf='tcga_luad_maf_final.gz')
+
+plotmafSummary(maf = tcga_luad_maf, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
+
+oncoplot(maf = tcga_luad_maf, top = 10)
+
+lollipopPlot(maf=tcga_luad_maf, gene= 'TP53', AACol = 'HGVSp_Short', showMutationRate = TRUE, labelPos=c(175,245,273))
+
+rainfallPlot(maf=brca, pointSize = 0.4, detectChangePoints = TRUE)
+
+tcga_luad_mutload <- tcgaCompare(maf = tcga_luad_maf, cohortName = 'Example Data', logscale = TRUE, capture_size = 35.8)
+
+somaticInteractions(maf = tcga_luad_maf, top = 10, pvalue = c(0.05,0.1),nShiftSymbols = 2)
+
+somaticInteractions(maf = tcga_luad_maf, genes = c('KRAS','EGFR','ERBB4','NTRK3','NF1','PDGFRA','BRAF','ALK','ROS1','NRTK2'), pvalue = c(0.05,0.1), nShiftSymbols = 2)
+
+OncogenicPathways(maf = tcga_luad_maf)
+
+PlotOncogenicPathways(maf = tcga_luad_maf, pathways = "RTK-RAS")
+
+PlotOncogenicPathways(maf = tcga_luad_maf, pathways = "TP53")
+
+
+
+
+```
+
