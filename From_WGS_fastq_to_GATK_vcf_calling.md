@@ -303,4 +303,8 @@ echo "Annotation completed. $(($duration / 60)) minutes and $(($duration % 60)) 
 
 ```
 
+The output: 
+
+xxx_funcotator.maf
+xxx_multianno.csv
 
