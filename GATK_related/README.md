@@ -1,8 +1,13 @@
 ## Goal: The place for storing GATK related ntoes
 
-- The notebook of GATK calling SV using Mut2, 
+- The notebook of GATK calling SV using Mut2, it's good for Tumor-Nomral pair analysis
 
 https://app.terra.bio/#workspaces/help-gatk/Somatic-SNVs-Indels-GATK4/analysis/launch/Somatic-Mutect2-Tutorial.ipynb
+
+
+- The notebook of GATK calling SV in other kind of sample
+  
+https://app.terra.bio/#workspaces/help-gatk/GATK4-Germline-Preprocessing-VariantCalling-JointCalling/analyses
 
 
 # Some good resource:
