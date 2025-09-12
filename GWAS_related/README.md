@@ -8,6 +8,9 @@ https://gatk.broadinstitute.org/hc/en-us/articles/4524513257499-GATK-on-the-clou
 
 https://broadinstitute.github.io/gatk-sv/
 
+- GATK Juypter-Notebook with steps
+
+https://app.terra.bio/#workspaces/Mila_Lab_Terra/GATKTutorials-Germline-June2019_copy/analyses
 
 
 - The notebook of GATK calling SV using Mut2, it's good for Tumor-Nomral pair analysis
